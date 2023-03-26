@@ -39,7 +39,7 @@ console.log(uniqueParcelLists);
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-          {uniqueParcelLists.map(parcel => (<ParcelSlot key={parcel.parcel.id.$oid} parcelList={parcel} />
+          {uniqueParcelLists.map((parcel,index) => (<ParcelSlot key={parcel.parcel.id.$oid} parcelList={parcel} isLast={index === uniqueParcelLists.length-1 } />
 ))}
         </View>
       </ScrollView>
