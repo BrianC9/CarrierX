@@ -1,18 +1,21 @@
 import { View, Text } from "react-native";
 import { COLORS, SIZES } from "../constants";
-import { Parcel } from "../types";
+import { Parcel, ParcelList } from "../types";
+import { formatDate } from "../utils/formatDate";
 interface ParcelSlotProps {
-  parcel: Parcel;
+  parcelList: ParcelList;
 }
-function ParcelSlot({ parcel }: ParcelSlotProps) {
+function ParcelSlot({ parcelList }: ParcelSlotProps) {
+  const {parcel,nItems,nParcelsThatDay,carriers} = parcelList
+  
   return (
     <View style={{flex:1, flexDirection:'row'}}>
       <View style={{flex:1, flexDirection:'column'}}>
-        <Text style={{fontSize:SIZES.large}}>Parcel List {parcel.deliveryDate}</Text>
-        <Text style={{fontSize:SIZES.small,color:COLORS.gray}}>X carriers will pick up the parcel on {parcel.pickupDate}</Text>
-        <Text style={{fontSize:SIZES.small,color:COLORS.gray}}>{parcel.itemsCount} items</Text>
+        <Text style={{fontSize:SIZES.large}}>Parcel List {formatDate(parcel.deliveryDate).toLocaleDateString()}</Text>
+        <Text style={{fontSize:SIZES.small,color:COLORS.gray}}>{carriers} carrier{carriers> 1 && 's'} will pick up the parcel on {formatDate(parcel.pickupDate).toLocaleDateString()}</Text>
+        <Text style={{fontSize:SIZES.small,color:COLORS.gray}}>{nItems} items</Text>
       </View>
-      <Text style={{fontSize:SIZES.small}}>{parcel.pickupDate}</Text>
+      <Text style={{fontSize:SIZES.small,color:'red'}}>{formatDate(parcel.pickupDate).toLocaleDateString()}</Text>
     </View>
   );
 }

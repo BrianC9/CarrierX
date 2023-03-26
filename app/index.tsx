@@ -11,14 +11,19 @@ import { Stack } from "expo-router";
 import { COLORS, icons, SHADOWS, SIZES } from "../constants";
 import parcelsList from "../data/parcels_mm.json";
 import ParcelSlot from "../components/ParcelSlot";
+import { Parcel } from "../types";
+import { getUniqueParcelList } from "../utils/formatDate";
 export default function Home() {
+
+const uniqueParcelLists=getUniqueParcelList(parcelsList)
+console.log(uniqueParcelLists);
   return (
-    <SafeAreaView 
+    <SafeAreaView
       style={{
         backgroundColor: COLORS.lightWhite,
-        padding: SIZES.large,
+        paddingHorizontal: SIZES.large,
+        paddingTop:SIZES.medium,
         flex: 1,
-        
       }}
     >
       <Stack.Screen
@@ -26,7 +31,7 @@ export default function Home() {
           headerStyle: {
             backgroundColor: COLORS.lightWhite,
           },
-          headerTitleStyle: { fontSize: SIZES.xLarge },
+          headerTitleStyle: { fontSize: SIZES.xLarge+4 },
           headerTitle: "Parcel Lists",
           headerShadowVisible: false,
         }}
@@ -34,9 +39,8 @@ export default function Home() {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-          {parcelsList.map((parcel) => (
-            <ParcelSlot key={parcel.id.$oid} parcel={parcel} />
-          ))}
+          {uniqueParcelLists.map(parcel => (<ParcelSlot key={parcel.parcel.id.$oid} parcelList={parcel} />
+))}
         </View>
       </ScrollView>
       <View
@@ -44,7 +48,7 @@ export default function Home() {
           alignItems: "center",
           width: "100%",
           backgroundColor: COLORS.lightWhite,
-          paddingVertical:10
+          paddingVertical: 10,
         }}
       >
         <TouchableOpacity
@@ -57,7 +61,7 @@ export default function Home() {
             height: 60,
             backgroundColor: "#ff0000",
             borderRadius: 50,
-           ...SHADOWS.medium
+            ...SHADOWS.medium,
           }}
         >
           <Image

@@ -11,3 +11,9 @@ export interface Parcel {
 export interface ID {
     $oid: string;
 }
+export interface ParcelList {
+    parcel: Parcel,
+    carriers: number,
+    nItems: number,
+    nParcelsThatDay:number
+}
