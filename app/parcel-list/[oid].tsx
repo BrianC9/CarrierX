@@ -13,8 +13,7 @@ function ParcelList() {
     (parcelList: Parcel) => parcelList.id.$oid === params.oid
   );
   const parcelsForThatDate = parcelLists.filter(parcel => parcel.deliveryDate === item?.deliveryDate)
-  console.log(parcelsForThatDate.length);
-  console.log(params);
+ 
   return (
     <SafeAreaView style={{backgroundColor:COLORS.lightWhite,flex:1,padding:SIZES.medium}}>
       <Stack.Screen

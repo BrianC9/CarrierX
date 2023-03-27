@@ -42,7 +42,6 @@ export default function Home() {
   }
   const hideModal = () => setModalVisible(false);
   const uniqueParcelLists = getUniqueParcelList(parcelsList);
-  console.log(uniqueParcelLists);
   return (
     <SafeAreaView
       style={{
