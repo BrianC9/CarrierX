@@ -1,4 +1,4 @@
-import { useRouter, useSearchParams } from "expo-router";
+import { useRouter } from "expo-router";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, FONT, SIZES } from "../constants";
 import { Parcel, ParcelList } from "../types";
@@ -11,7 +11,6 @@ interface ParcelSlotProps {
 function ParcelSlot({ parcelList, isLast }: ParcelSlotProps) {
   const { parcel, nItems, carriers } = parcelList;
 const router = useRouter()
-const params = useSearchParams()
 const handleRoute = ()=>{
   router.push(`/parcel-list/${parcel.id.$oid}?nItems=${nItems}`)
 }

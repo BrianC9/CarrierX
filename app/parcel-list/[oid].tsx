@@ -10,7 +10,7 @@ import { formatDate } from "../../utils/formatDate";
 function ParcelList() {
   const params = useSearchParams();
   const item = parcelLists.find(
-    (parcelList: Parcel) => parcelList.id.$oid === params.deliveryDate
+    (parcelList: Parcel) => parcelList.id.$oid === params.oid
   );
   const parcelsForThatDate = parcelLists.filter(parcel => parcel.deliveryDate === item?.deliveryDate)
   console.log(parcelsForThatDate.length);
