@@ -10,6 +10,7 @@ interface DeliveryParcelProps {
 }
 function DeliveryParcel({ parcel, isDelivered,isLast }: DeliveryParcelProps) {
     const router = useRouter()
+    
     const handleRoute =()=>{
         router.push(`/parcel-details/${parcel.id.$oid}`)
     }

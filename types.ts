@@ -22,3 +22,10 @@ export interface ParcelList {
     carriers: number | 0,
     nItems: number | 0,
 }
+export interface Item {
+    id:     ID;
+    type:   string;
+    model:  string;
+    price:  number;
+    weigth: number;
+}
