@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 
-import { Stack } from "expo-router";
+import { Stack,useRouter } from "expo-router";
 
 import { COLORS, FONT, icons, SHADOWS, SIZES } from "../constants";
 import parcelsList from "../data/parcels_mm.json";
@@ -62,6 +62,7 @@ export default function Home() {
             fontFamily: FONT.medium,
           },
           headerTitle: "Parcel Lists",
+          headerTitleAlign:'left',
           headerShadowVisible: false,
         }}
       />
@@ -111,6 +112,7 @@ export default function Home() {
         transparent
         animationType="slide"
         onRequestClose={hideModal}
+        
       >
         <SafeAreaView
           style={{
@@ -118,6 +120,7 @@ export default function Home() {
             flex: 1,
             flexDirection: "column-reverse",
           }}
+          
         >
           <View
             style={{
@@ -165,6 +168,8 @@ export default function Home() {
                 </Text>
                 <TextInput
                   placeholder="641DB7B2FC13"
+                  value={parcelID}
+                  onChangeText={(text)=>setParcelID(text)}
                   style={{
                     backgroundColor: COLORS.lightWhite,
                     fontSize: SIZES.large,

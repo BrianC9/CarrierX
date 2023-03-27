@@ -1,3 +1,4 @@
+import { useRouter, useSearchParams } from "expo-router";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, FONT, SIZES } from "../constants";
 import { Parcel, ParcelList } from "../types";
@@ -5,12 +6,18 @@ import { formatDate } from "../utils/formatDate";
 interface ParcelSlotProps {
   parcelList: ParcelList;
   isLast: boolean;
+  
 }
 function ParcelSlot({ parcelList, isLast }: ParcelSlotProps) {
   const { parcel, nItems, nParcelsThatDay, carriers } = parcelList;
+const router = useRouter()
+const params = useSearchParams()
+const handleRoute = ()=>{
+  router.push(`/parcel-list/${parcel.id.$oid}?nItems=${nItems}`)
+}
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={handleRoute}>
     <View style={!isLast ? styles.container : {...styles.container,borderBottomWidth:0}}>
       <View style={{ flex: 1, flexDirection: "column" }}>
         <Text style={{ fontSize: SIZES.large ,fontFamily:FONT.medium}}>
