@@ -19,7 +19,6 @@ export interface ID {
 }
 export interface ParcelList {
     parcel: Parcel,
-    carriers: number,
-    nItems: number,
-    nParcelsThatDay: number
+    carriers: number | 0,
+    nItems: number | 0,
 }

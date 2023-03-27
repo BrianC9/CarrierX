@@ -9,7 +9,7 @@ interface ParcelSlotProps {
   
 }
 function ParcelSlot({ parcelList, isLast }: ParcelSlotProps) {
-  const { parcel, nItems, nParcelsThatDay, carriers } = parcelList;
+  const { parcel, nItems, carriers } = parcelList;
 const router = useRouter()
 const params = useSearchParams()
 const handleRoute = ()=>{
