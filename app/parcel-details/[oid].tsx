@@ -1,25 +1,13 @@
-import { useSearchParams, useRouter, Stack } from "expo-router";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { Stack, useRouter, useSearchParams } from "expo-router";
+import { useState } from "react";
 import {
-  View,
-  Text,
-  SafeAreaView,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-  Modal,
-  TextInput,
-  Image,
+  Image, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View
 } from "react-native";
-import { SelectList } from "react-native-dropdown-select-list";
-import DeliveryParcel from "../../components/DeliveryParcel";
-import ModalForm from "../../components/ModalForm";
 import ParcelDetails from "../../components/ParcelDetails";
-import ParcelSlot from "../../components/ParcelSlot";
-import { COLORS, FONT, SIZES, SHADOWS, icons } from "../../constants";
+import { COLORS, FONT, icons, SHADOWS, SIZES } from "../../constants";
 import parcelLists from "../../data/parcels_mm.json";
-import { Item, Parcel } from "../../types";
-import { formatDate, getListOfItems } from "../../utils/formatDate";
+import { Parcel } from "../../types";
+import { getListOfItems } from "../../utils/formatDate";
 
 function ParcelList() {
   const [modalVisible, setModalVisible] = useState(false);

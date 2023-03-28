@@ -1,7 +1,6 @@
-import { useSearchParams, useRouter, Stack } from "expo-router";
-import { View, Text, SafeAreaView, FlatList } from "react-native";
+import { Stack, useSearchParams } from "expo-router";
+import { SafeAreaView, Text } from "react-native";
 import DeliveryParcel from "../../components/DeliveryParcel";
-import ParcelSlot from "../../components/ParcelSlot";
 import { COLORS, FONT, SIZES } from "../../constants";
 import parcelLists from "../../data/parcels_mm.json";
 import { Parcel } from "../../types";

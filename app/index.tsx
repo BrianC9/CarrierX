@@ -1,25 +1,18 @@
 import {
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
   Image,
-  Modal,
-  TextInput,
-  Button,
+  Modal, SafeAreaView,
+  ScrollView, Text, TextInput, TouchableOpacity, View
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 
-import { Stack,useRouter } from "expo-router";
+import { Stack } from "expo-router";
 
-import { COLORS, FONT, icons, SHADOWS, SIZES } from "../constants";
-import parcelsList from "../data/parcels_mm.json";
-import ParcelSlot from "../components/ParcelSlot";
-import { getUniqueParcelList } from "../utils/formatDate";
 import { useState } from "react";
+import ParcelSlot from "../components/ParcelSlot";
+import { COLORS, FONT, icons, SHADOWS, SIZES } from "../constants";
 import carrierList from "../data/carriers_mm.json";
-import { Carrier } from "../types";
+import parcelsList from "../data/parcels_mm.json";
+import { getUniqueParcelList } from "../utils/formatDate";
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
   const [parcelID, setParcelID] = useState("");

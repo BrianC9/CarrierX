@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS, FONT, SIZES } from "../constants";
-import { Parcel, ParcelList } from "../types";
+import { ParcelList } from "../types";
 import { formatDate } from "../utils/formatDate";
 interface ParcelSlotProps {
   parcelList: ParcelList;

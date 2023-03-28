@@ -1,6 +1,6 @@
-import { useRouter, useSearchParams } from "expo-router";
+import { useSearchParams } from "expo-router";
 import React from "react";
-import { TouchableOpacity, View, Text, Image, StyleSheet, SafeAreaView } from "react-native";
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { COLORS, FONT, icons, SIZES } from "../constants";
 import { Item } from "../types";
 

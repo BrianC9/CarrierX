@@ -1,6 +1,5 @@
 import { useRouter } from "expo-router";
-import React from "react";
-import { TouchableOpacity, View, Text, Image,StyleSheet } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS, FONT, icons, SIZES } from "../constants";
 import { Parcel } from "../types";
 interface DeliveryParcelProps {
