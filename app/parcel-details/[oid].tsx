@@ -9,20 +9,23 @@ import {
   StyleSheet,
   Modal,
   TextInput,
+  Image,
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import DeliveryParcel from "../../components/DeliveryParcel";
 import ModalForm from "../../components/ModalForm";
 import ParcelDetails from "../../components/ParcelDetails";
 import ParcelSlot from "../../components/ParcelSlot";
-import { COLORS, FONT, SIZES, SHADOWS } from "../../constants";
+import { COLORS, FONT, SIZES, SHADOWS, icons } from "../../constants";
 import parcelLists from "../../data/parcels_mm.json";
 import { Item, Parcel } from "../../types";
 import { formatDate, getListOfItems } from "../../utils/formatDate";
 
 function ParcelList() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [succseModalVisible,setSuccessModalVisible] = useState(false)
+  const [succseModalVisible, setSuccessModalVisible] = useState(false);
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const router = useRouter();
   const showModal = () => {
     setModalVisible(true);
   };
@@ -32,16 +35,21 @@ function ParcelList() {
     (parcelList: Parcel) => parcelList.id.$oid === params.oid
   );
   const listOfItems = getListOfItems(item?.items ?? []);
-  const [driverData,setDriverData] = useState({
-    nameDriver:'',
-    plate:''
-  })
-  const handleDataFromTheDriver =()=>{
-    if(driverData.nameDriver.trim()==='' || driverData.nameDriver.trim()==='' ){
-      return 
+  const [driverData, setDriverData] = useState({
+    nameDriver: "",
+    plate: "",
+  });
+  const handleDataFromTheDriver = () => {
+    if (
+      driverData.nameDriver.trim() === "" ||
+      driverData.nameDriver.trim() === ""
+    ) {
+      setErrorModalVisible(true);
+    } else {
+      setModalVisible(false);
+      setSuccessModalVisible(true);
     }
-    alert(driverData.nameDriver+'\n'+driverData.plate)
-  }
+  };
   return (
     <SafeAreaView
       style={{
@@ -80,7 +88,7 @@ function ParcelList() {
           padding: SIZES.medium,
           ...SHADOWS.medium,
         }}
-        onPress={() => {}}
+        onPress={showModal}
       >
         <Text
           style={{
@@ -88,11 +96,144 @@ function ParcelList() {
             fontSize: SIZES.large,
             color: COLORS.lightWhite,
           }}
-          onPress={showModal}
         >
           DELIVERY
         </Text>
       </TouchableOpacity>
+      <Modal
+        visible={succseModalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => {
+          setSuccessModalVisible(false);
+        }}
+      >
+        <SafeAreaView
+          style={{
+            backgroundColor: "#000000aa",
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              height: "50%",
+              width: "80%",
+              backgroundColor: COLORS.lightWhite,
+              padding: SIZES.medium,
+              borderRadius: SIZES.medium,
+              gap: 20,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={icons.success}
+              resizeMode="contain"
+              style={{ width: 120, height: 120 }}
+            />
+            <Text
+              style={{
+                fontFamily: FONT.medium,
+                fontSize: SIZES.large,
+                textAlign: "center",
+              }}
+            >
+              Parcel successfully delivered to the carrier
+            </Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: COLORS.red,
+                paddingVertical: SIZES.medium,
+                paddingHorizontal: SIZES.large,
+                ...SHADOWS.medium,
+                borderRadius: SIZES.small,
+              }}
+              onPress={() => {
+                router.push("/");
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: SIZES.medium,
+                  color: COLORS.lightWhite,
+                }}
+              >
+                GO TO PARCEL LIST
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </Modal>
+      <Modal
+        visible={errorModalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => {
+          setErrorModalVisible(false);
+        }}
+      >
+        <SafeAreaView
+          style={{
+            backgroundColor: "#000000aa",
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              height: "50%",
+              width: "80%",
+              backgroundColor: COLORS.lightWhite,
+              padding: SIZES.medium,
+              borderRadius: SIZES.medium,
+              gap: 20,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={icons.error}
+              resizeMode="contain"
+              style={{ width: 120, height: 140 }}
+            />
+            <Text
+              style={{
+                fontFamily: FONT.medium,
+                fontSize: SIZES.large,
+                textAlign: "center",
+              }}
+            >
+              Some information is wrong
+            </Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: COLORS.red,
+                paddingVertical: SIZES.medium,
+                paddingHorizontal: SIZES.large,
+                ...SHADOWS.medium,
+                borderRadius: SIZES.small,
+              }}
+              onPress={() => {
+                setErrorModalVisible(false);
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: SIZES.medium,
+                  color: COLORS.lightWhite,
+                }}
+              >
+                BACK
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </Modal>
       <Modal
         visible={modalVisible}
         transparent
@@ -152,7 +293,12 @@ function ParcelList() {
                 <TextInput
                   placeholder="Manfred Stager"
                   value={driverData.nameDriver}
-                  onChangeText={(text) => {setDriverData(prevState =>({...prevState,nameDriver:text}))}}
+                  onChangeText={(text) => {
+                    setDriverData((prevState) => ({
+                      ...prevState,
+                      nameDriver: text,
+                    }));
+                  }}
                   style={{
                     backgroundColor: COLORS.lightWhite,
                     fontSize: SIZES.large,
@@ -161,37 +307,41 @@ function ParcelList() {
                 />
               </View>
               <View
-               style={{
-                borderWidth: 2,
-                borderColor: COLORS.gray2,
-                borderRadius: SIZES.xSmall / 2,
-              }}
-              
-              >
-              <Text
                 style={{
-                  position: "absolute",
-                  bottom: 50,
-                  left: 10,
-                  backgroundColor: COLORS.lightWhite,
-                  paddingHorizontal: SIZES.xSmall,
-                  color: COLORS.gray,
-                  fontSize: SIZES.small,
-                  zIndex: 100,
+                  borderWidth: 2,
+                  borderColor: COLORS.gray2,
+                  borderRadius: SIZES.xSmall / 2,
                 }}
               >
-                License Plate
-              </Text>
-              <TextInput
-                placeholder="3859FYF"
-                value={driverData.plate}
-                onChangeText={(text) => {setDriverData(prevState =>({...prevState,plate:text}))}}
-                style={{
-                  backgroundColor: COLORS.lightWhite,
-                  fontSize: SIZES.large,
-                  padding: SIZES.small + 2,
-                }}
-              ></TextInput>
+                <Text
+                  style={{
+                    position: "absolute",
+                    bottom: 50,
+                    left: 10,
+                    backgroundColor: COLORS.lightWhite,
+                    paddingHorizontal: SIZES.xSmall,
+                    color: COLORS.gray,
+                    fontSize: SIZES.small,
+                    zIndex: 100,
+                  }}
+                >
+                  License Plate
+                </Text>
+                <TextInput
+                  placeholder="3859FYF"
+                  value={driverData.plate}
+                  onChangeText={(text) => {
+                    setDriverData((prevState) => ({
+                      ...prevState,
+                      plate: text,
+                    }));
+                  }}
+                  style={{
+                    backgroundColor: COLORS.lightWhite,
+                    fontSize: SIZES.large,
+                    padding: SIZES.small + 2,
+                  }}
+                ></TextInput>
               </View>
               <TouchableOpacity
                 style={{
@@ -218,16 +368,5 @@ function ParcelList() {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    justifyContent: "center",
-    backgroundColor: "white",
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
-});
+
 export default ParcelList;
