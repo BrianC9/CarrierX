@@ -10,7 +10,6 @@ interface DeliveryParcelDetails {
 }
 function ParcelDetails({ item, isLast }: DeliveryParcelDetails) {
   const params = useSearchParams();
-  console.log(params);
   const getImageSource = (type: string) => {
     switch (type.toLocaleLowerCase()) {
       case "phone":

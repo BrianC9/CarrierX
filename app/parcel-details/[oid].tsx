@@ -39,13 +39,18 @@ function ParcelList() {
     nameDriver: "",
     plate: "",
   });
+  
   const handleDataFromTheDriver = () => {
+    
+    //Data validationg
+    
     if (
       driverData.nameDriver.trim() === "" ||
       driverData.nameDriver.trim() === ""
     ) {
       setErrorModalVisible(true);
     } else {
+      // Check if the driver || license plate is on the registry
       setModalVisible(false);
       setSuccessModalVisible(true);
     }
