@@ -3,6 +3,8 @@ import { useState } from "react";
 import {
   Image, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View
 } from "react-native";
+import ModalError from "../../components/ModalError";
+import ModalSuccess from "../../components/ModalSuccess";
 import ParcelDetails from "../../components/ParcelDetails";
 import { COLORS, FONT, icons, SHADOWS, SIZES } from "../../constants";
 import parcelLists from "../../data/parcels_mm.json";
@@ -93,140 +95,8 @@ function ParcelList() {
           DELIVERY
         </Text>
       </TouchableOpacity>
-      <Modal
-        visible={succseModalVisible}
-        transparent
-        animationType="fade"
-        onRequestClose={() => {
-          setSuccessModalVisible(false);
-        }}
-      >
-        <SafeAreaView
-          style={{
-            backgroundColor: "#000000aa",
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <View
-            style={{
-              height: "50%",
-              width: "80%",
-              backgroundColor: COLORS.lightWhite,
-              padding: SIZES.medium,
-              borderRadius: SIZES.medium,
-              gap: 20,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              source={icons.success}
-              resizeMode="contain"
-              style={{ width: 120, height: 120 }}
-            />
-            <Text
-              style={{
-                fontFamily: FONT.medium,
-                fontSize: SIZES.large,
-                textAlign: "center",
-              }}
-            >
-              Parcel successfully delivered to the carrier
-            </Text>
-            <TouchableOpacity
-              style={{
-                backgroundColor: COLORS.red,
-                paddingVertical: SIZES.medium,
-                paddingHorizontal: SIZES.large,
-                ...SHADOWS.medium,
-                borderRadius: SIZES.small,
-              }}
-              onPress={() => {
-                router.push("/");
-              }}
-            >
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: SIZES.medium,
-                  color: COLORS.lightWhite,
-                }}
-              >
-                GO TO PARCEL LIST
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView>
-      </Modal>
-      <Modal
-        visible={errorModalVisible}
-        transparent
-        animationType="fade"
-        onRequestClose={() => {
-          setErrorModalVisible(false);
-        }}
-      >
-        <SafeAreaView
-          style={{
-            backgroundColor: "#000000aa",
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <View
-            style={{
-              height: "50%",
-              width: "80%",
-              backgroundColor: COLORS.lightWhite,
-              padding: SIZES.medium,
-              borderRadius: SIZES.medium,
-              gap: 20,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              source={icons.error}
-              resizeMode="contain"
-              style={{ width: 120, height: 140 }}
-            />
-            <Text
-              style={{
-                fontFamily: FONT.medium,
-                fontSize: SIZES.large,
-                textAlign: "center",
-              }}
-            >
-              Some information is wrong
-            </Text>
-            <TouchableOpacity
-              style={{
-                backgroundColor: COLORS.red,
-                paddingVertical: SIZES.medium,
-                paddingHorizontal: SIZES.large,
-                ...SHADOWS.medium,
-                borderRadius: SIZES.small,
-              }}
-              onPress={() => {
-                setErrorModalVisible(false);
-              }}
-            >
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: SIZES.medium,
-                  color: COLORS.lightWhite,
-                }}
-              >
-                BACK
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView>
-      </Modal>
+      <ModalSuccess succseModalVisible={succseModalVisible} setSuccessModalVisible={setSuccessModalVisible}/>
+      <ModalError setErrorModalVisible={setErrorModalVisible} errorModalVisible={errorModalVisible}/>
       <Modal
         visible={modalVisible}
         transparent

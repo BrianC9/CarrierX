@@ -1,25 +1,22 @@
 import {
-  Image,
-  Modal, SafeAreaView,
-  ScrollView, Text, TextInput, TouchableOpacity, View
+  Image, SafeAreaView,
+  ScrollView, TouchableOpacity, View
 } from "react-native";
-import { SelectList } from "react-native-dropdown-select-list";
 
 import { Stack } from "expo-router";
 
 import { useState } from "react";
+import ModalHome from "../components/ModalHome";
 import ParcelSlot from "../components/ParcelSlot";
 import { COLORS, FONT, icons, SHADOWS, SIZES } from "../constants";
 import parcelsList from "../data/parcels_mm.json";
 import { getUniqueParcelList } from "../utils/getUniqueParcelLists";
-import ModalHome from "../components/ModalHome";
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
   const [parcelID, setParcelID] = useState("");
   const [carrierSelected, setCarrierSelected] = useState(
     ''
   );
-  const [selected, setSelected] = useState("");
  
 
   const showModal = () => {
