@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   Image, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View
 } from "react-native";
+import ModalDriverData from "../../components/ModalDriverData";
 import ModalError from "../../components/ModalError";
 import ModalSuccess from "../../components/ModalSuccess";
 import ParcelDetails from "../../components/ParcelDetails";
@@ -36,13 +37,14 @@ function ParcelList() {
     
     if (
       driverData.nameDriver.trim() === "" ||
-      driverData.nameDriver.trim() === ""
+      driverData.plate.trim() === ""
     ) {
       setErrorModalVisible(true);
     } else {
       // Check if the driver || license plate is on the registry
       setModalVisible(false);
       setSuccessModalVisible(true);
+      setDriverData({nameDriver:'',plate:''})
     }
   };
   return (
@@ -97,137 +99,7 @@ function ParcelList() {
       </TouchableOpacity>
       <ModalSuccess succseModalVisible={succseModalVisible} setSuccessModalVisible={setSuccessModalVisible}/>
       <ModalError setErrorModalVisible={setErrorModalVisible} errorModalVisible={errorModalVisible}/>
-      <Modal
-        visible={modalVisible}
-        transparent
-        animationType="slide"
-        onRequestClose={hideModal}
-      >
-        <SafeAreaView
-          style={{
-            backgroundColor: "#000000aa",
-            flex: 1,
-            flexDirection: "column-reverse",
-          }}
-        >
-          <View
-            style={{
-              height: "40%",
-              backgroundColor: COLORS.lightWhite,
-              opacity: 1,
-              padding: SIZES.medium,
-              borderTopLeftRadius: SIZES.medium,
-              borderTopRightRadius: SIZES.medium,
-              gap: 10,
-              justifyContent: "space-between",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: SIZES.xLarge,
-                fontFamily: FONT.medium,
-                textAlign: "center",
-              }}
-            >
-              Delivery Information
-            </Text>
-            <View style={{ gap: SIZES.medium }}>
-              <View
-                style={{
-                  borderWidth: 2,
-                  borderColor: COLORS.gray2,
-                  borderRadius: SIZES.xSmall / 2,
-                }}
-              >
-                <Text
-                  style={{
-                    position: "absolute",
-                    bottom: 45,
-                    left: 10,
-                    backgroundColor: COLORS.lightWhite,
-                    paddingHorizontal: SIZES.xSmall,
-                    color: COLORS.gray,
-                    zIndex: 100,
-                    fontSize: SIZES.small,
-                  }}
-                >
-                  Driver's Name
-                </Text>
-                <TextInput
-                  placeholder="Manfred Stager"
-                  value={driverData.nameDriver}
-                  onChangeText={(text) => {
-                    setDriverData((prevState) => ({
-                      ...prevState,
-                      nameDriver: text,
-                    }));
-                  }}
-                  style={{
-                    backgroundColor: COLORS.lightWhite,
-                    fontSize: SIZES.large,
-                    padding: SIZES.small + 2,
-                  }}
-                />
-              </View>
-              <View
-                style={{
-                  borderWidth: 2,
-                  borderColor: COLORS.gray2,
-                  borderRadius: SIZES.xSmall / 2,
-                }}
-              >
-                <Text
-                  style={{
-                    position: "absolute",
-                    bottom: 50,
-                    left: 10,
-                    backgroundColor: COLORS.lightWhite,
-                    paddingHorizontal: SIZES.xSmall,
-                    color: COLORS.gray,
-                    fontSize: SIZES.small,
-                    zIndex: 100,
-                  }}
-                >
-                  License Plate
-                </Text>
-                <TextInput
-                  placeholder="3859FYF"
-                  value={driverData.plate}
-                  onChangeText={(text) => {
-                    setDriverData((prevState) => ({
-                      ...prevState,
-                      plate: text,
-                    }));
-                  }}
-                  style={{
-                    backgroundColor: COLORS.lightWhite,
-                    fontSize: SIZES.large,
-                    padding: SIZES.small + 2,
-                  }}
-                ></TextInput>
-              </View>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: COLORS.red,
-                  padding: SIZES.medium,
-                  ...SHADOWS.medium,
-                }}
-                onPress={handleDataFromTheDriver}
-              >
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: SIZES.large,
-                    color: COLORS.lightWhite,
-                  }}
-                >
-                  NEXT
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </SafeAreaView>
-      </Modal>
+      <ModalDriverData modalVisible={modalVisible} driverData={driverData} hideModal={hideModal} setDriverData={setDriverData} handleDataFromTheDriver={handleDataFromTheDriver}/>
     </SafeAreaView>
   );
 }
