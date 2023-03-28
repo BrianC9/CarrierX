@@ -12,7 +12,7 @@ import ParcelSlot from "../components/ParcelSlot";
 import { COLORS, FONT, icons, SHADOWS, SIZES } from "../constants";
 import carrierList from "../data/carriers_mm.json";
 import parcelsList from "../data/parcels_mm.json";
-import { getUniqueParcelList } from "../utils/formatDate";
+import { getUniqueParcelList } from "../utils/getUniqueParcelLists";
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
   const [parcelID, setParcelID] = useState("");

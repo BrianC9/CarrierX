@@ -7,7 +7,7 @@ import ParcelDetails from "../../components/ParcelDetails";
 import { COLORS, FONT, icons, SHADOWS, SIZES } from "../../constants";
 import parcelLists from "../../data/parcels_mm.json";
 import { Parcel } from "../../types";
-import { getListOfItems } from "../../utils/formatDate";
+import { getListOfItems } from "../../utils/getListOfItems";
 
 function ParcelList() {
   const [modalVisible, setModalVisible] = useState(false);
